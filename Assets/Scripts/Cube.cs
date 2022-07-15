@@ -6,6 +6,6 @@ public class Cube : MonoBehaviour
     
     void Start()
     {
-        
+        Debug.Log("Magic!");
     }
 }
