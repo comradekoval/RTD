@@ -31,6 +31,11 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void BuyDiceA(DiceType type)
+    {
+        
+    }
+
     private void Update()
     {
         text.text = $"money: {money}";

@@ -10,8 +10,7 @@ public class EnemyManager : MonoBehaviour
     public float spawnCooldown = 1f;
 
     public GameObject enemy;
-
-    // Update is called once per frame
+    
     private void FixedUpdate()
     {
         MaybeSpawnGoblin();
