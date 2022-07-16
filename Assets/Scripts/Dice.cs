@@ -8,11 +8,12 @@ using Random = UnityEngine.Random;
 public abstract class Dice : MonoBehaviour
 {
     public GameObject damagePrefab;
-    
+    public AudioController audioController;
+
     private Rigidbody _rigidbody;
     private LineRenderer _lineRenderer;
     private Camera _mainCamera;
-
+    
     private DiceConveyorBelt _conveyorBelt;
     private bool _shouldFollowCursor;
     private bool _forceSelectorActive;
@@ -63,7 +64,6 @@ public abstract class Dice : MonoBehaviour
     private void Update()
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 100f);
         Vector3 direction = new Vector3();
         Vector3 position = new Vector3();
         new Plane(Vector3.up, transform.position).Raycast(ray, out float enterDistance);
@@ -124,6 +124,7 @@ public abstract class Dice : MonoBehaviour
         var dmgZone = Instantiate(damagePrefab, transform.position, quaternion.identity);
 
         dmgZone.GetComponent<DamageZone>().dmg = value;
+        audioController.PlayExplosionSound();
         Destroy(gameObject);
     }
 
