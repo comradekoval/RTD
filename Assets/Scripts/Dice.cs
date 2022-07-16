@@ -22,9 +22,16 @@ public class Dice : MonoBehaviour
     private float _didFireTimeout;
 
 
-    public void AddToConveyorBelt(DiceConveyorBelt conveyorBelt)
+    public void AddDiceToBelt(DiceConveyorBelt conveyorBelt)
     {
         _conveyorBelt = conveyorBelt;
+    }
+
+    public void CollectDice(Shop shop)
+    {
+        shop.AddMoney(GetCurrentValue());
+        _conveyorBelt.RemoveDiceFromBelt(transform);
+        Destroy(gameObject);
     }
     
     private void Start()

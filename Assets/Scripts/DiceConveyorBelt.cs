@@ -14,7 +14,7 @@ public class DiceConveyorBelt : MonoBehaviour
     public void AddDiceToBelt(Dice dice)
     {
         dicesOnBelt.Add(dice.transform);
-        dice.AddToConveyorBelt(this);
+        dice.AddDiceToBelt(this);
 
         dice.transform.position = beltStartPosition.position;
     }
