@@ -33,7 +33,7 @@ public abstract class Dice : MonoBehaviour
         Destroy(gameObject);
     }
     
-    private void Start()
+    private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _lineRenderer = GetComponent<LineRenderer>();
@@ -54,11 +54,7 @@ public abstract class Dice : MonoBehaviour
         if (_lastPos == transform.position && !_didFireAfterRoll)
         {
             _didFireAfterRoll = true;
-            var value = GetCurrentValue();
-            var dmgZone = Instantiate(damagePrefab, transform.position, quaternion.identity);
-
-            dmgZone.GetComponent<DamageZone>().dmg = value;
-            Destroy(gameObject);
+            OnExplode();
         }
         
         _lastPos = transform.position;
@@ -87,13 +83,10 @@ public abstract class Dice : MonoBehaviour
         
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
         {
-            _forceSelectorActive = false;
-            _rigidbody.isKinematic = false;
+            AllowExplosion();
             _rigidbody.AddForce(Vector3.up * 160f);
             _rigidbody.AddForce(-direction * 100f);
             _rigidbody.AddTorque(Random.insideUnitSphere.normalized * 4);
-            _lineRenderer.enabled = false;
-            _didFireTimeout = Time.time + 0.3f;
             return;
         }
         
@@ -110,6 +103,24 @@ public abstract class Dice : MonoBehaviour
         if (hit.transform != transform) return;
         _shouldFollowCursor = true;
         _conveyorBelt.RemoveDiceFromBelt(transform);
+    }
+
+    public void AllowExplosion()
+    {
+        _shouldFollowCursor = false;
+        _forceSelectorActive = false;
+        _rigidbody.isKinematic = false;
+        _lineRenderer.enabled = false;
+        _didFireTimeout = Time.time + 0.3f;
+    }
+
+    public virtual void OnExplode()
+    {
+        var value = GetCurrentValue();
+        var dmgZone = Instantiate(damagePrefab, transform.position, quaternion.identity);
+
+        dmgZone.GetComponent<DamageZone>().dmg = value;
+        Destroy(gameObject);
     }
 
     public int GetCurrentValue()
