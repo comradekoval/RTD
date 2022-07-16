@@ -152,5 +152,6 @@ public abstract class Dice : MonoBehaviour
         return value;
     }
 
-    protected abstract Vector3 GetVectorForSide(int side);
+    public abstract Vector3 GetVectorForSide(int side);
+    public abstract int GetMaxValue();
 }

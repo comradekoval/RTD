@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class D20 : Dice
 {
-    protected override Vector3 GetVectorForSide(int side)
+    public override Vector3 GetVectorForSide(int side)
     {
         switch (side)
         {
@@ -31,5 +31,10 @@ public class D20 : Dice
             case 20: return new Vector3(-0.8f, -0.6f, 0.2f);
         }
         return Vector3.zero;
+    }
+    
+    public override int GetMaxValue()
+    {
+        return 20;
     }
 }

@@ -16,7 +16,14 @@ public class DiceConveyorBelt : MonoBehaviour
         dicesOnBelt.Add(dice.transform);
         dice.AddDiceToBelt(this);
 
-        dice.transform.position = beltStartPosition.position;
+        var startPos = beltStartPosition.position;
+
+        dice.transform.position = startPos;
+
+        var initialValue = Random.Range(1, dice.GetMaxValue() + 1);
+        var newUp = dice.GetComponent<Dice>().GetVectorForSide(initialValue);
+
+        dice.transform.rotation = Quaternion.FromToRotation(newUp, Vector3.up);
     }
     
     public void RemoveDiceFromBelt(Transform diceTransform)
