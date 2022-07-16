@@ -67,7 +67,9 @@ public class PlayerDiceBagController : MonoBehaviour
 public enum DiceType
 {
     SixSided,
-    TwentySided
+    TwentySided,
+    Multi,
+    Trap,
 }
 
 [Serializable]
