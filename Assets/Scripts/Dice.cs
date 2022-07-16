@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(Renderer))]
-public class Dice : MonoBehaviour
+public abstract class Dice : MonoBehaviour
 {
     public GameObject damagePrefab;
     
@@ -20,7 +20,6 @@ public class Dice : MonoBehaviour
     private Vector3 _lastPos;
     private bool _didFireAfterRoll = true;
     private float _didFireTimeout;
-
 
     public void AddDiceToBelt(DiceConveyorBelt conveyorBelt)
     {
@@ -113,7 +112,7 @@ public class Dice : MonoBehaviour
         _conveyorBelt.RemoveDiceFromBelt(transform);
     }
 
-    private int GetCurrentValue()
+    public int GetCurrentValue()
     {
         Vector3 localHitNormalized;
         var t = transform;
@@ -134,7 +133,7 @@ public class Dice : MonoBehaviour
         Vector3 testHitVector;
         do
         {
-            testHitVector = HitVector(side);
+            testHitVector = GetVectorForSide(side);
             if (testHitVector != Vector3.zero)
             {
                 float nDelta = Mathf.Abs(localHitNormalized.x - testHitVector.x) + Mathf.Abs(localHitNormalized.y - testHitVector.y) + Mathf.Abs(localHitNormalized.z - testHitVector.z);
@@ -148,20 +147,10 @@ public class Dice : MonoBehaviour
             // if we got a Vector.zero as the testHitVector we have checked all sides of this die
         } while (testHitVector != Vector3.zero);
 
+        Debug.Log(value);
+        
         return value;
     }
 
-    private Vector3 HitVector(int side)
-    {
-        switch (side)
-        {
-            case 1: return new Vector3(0F, 0F, -1F);
-            case 2: return new Vector3(-1F, 0F, 0F);
-            case 3: return new Vector3(0F, 1F, 0F);
-            case 4: return new Vector3(1F, 0F, 0F);
-            case 5: return new Vector3(0F, -1F, 0F);
-            case 6: return new Vector3(0F, 0F, 1F);
-        }
-        return Vector3.zero;
-    }
+    protected abstract Vector3 GetVectorForSide(int side);
 }
