@@ -75,10 +75,13 @@ public abstract class Dice : MonoBehaviour
         
         if (_shouldFollowCursor)
         {
-            var pos = transform.position;
-            _lineRenderer.enabled = true;
-            _lineRenderer.SetPositions(new []{pos, pos + direction});
             transform.position = position;
+        }
+
+        if (_forceSelectorActive)
+        {
+            var pos = transform.position;
+            _lineRenderer.SetPositions(new []{pos, pos + direction});
         }
         
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
@@ -94,6 +97,7 @@ public abstract class Dice : MonoBehaviour
         {
             _forceSelectorActive = true;
             _shouldFollowCursor = false;
+            _lineRenderer.enabled = true;
             return;
         }
 
