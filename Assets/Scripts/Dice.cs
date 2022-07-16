@@ -42,6 +42,7 @@ public abstract class Dice : MonoBehaviour
         _mainCamera = Camera.main;
 
         _lastPos = transform.position;
+        _rigidbody.isKinematic = false;
     }
 
     private void FixedUpdate()
@@ -75,6 +76,7 @@ public abstract class Dice : MonoBehaviour
         
         if (_shouldFollowCursor)
         {
+            _rigidbody.isKinematic = true;
             transform.position = position;
         }
 
@@ -87,9 +89,9 @@ public abstract class Dice : MonoBehaviour
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
         {
             AllowExplosion();
-            _rigidbody.AddForce(Vector3.up * 160f);
-            _rigidbody.AddForce(-direction * 100f);
-            _rigidbody.AddTorque(Random.insideUnitSphere.normalized * 4);
+            _rigidbody.AddForce(Vector3.up * direction.magnitude / 10, ForceMode.VelocityChange );
+            _rigidbody.AddForce(-direction, ForceMode.VelocityChange);
+            _rigidbody.AddTorque(Random.insideUnitSphere.normalized * (direction.magnitude * 8));
             return;
         }
         

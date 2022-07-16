@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
-    private int _hp = 10;
-    private int _maxHp = 10;
+    private int _hp = 6;
+    private int _maxHp = 6;
     private bool _isLeftFoot = true;
     private float _nextAnimationTime;
 
@@ -62,7 +62,7 @@ public class Goblin : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Trap"))
         {
-            Die();
+            ReceiveDamage(2);
             Destroy(trigger.gameObject);
         }
         
