@@ -15,7 +15,10 @@ public class PlayerDiceBagController : MonoBehaviour
 
     public void AddDiceToBag(DiceType diceType)
     {
-        bagDices.Add(diceType);
+        var prevCurrent = bagDices[_currentDice];
+        bagDices[_currentDice] = diceType;
+        bagDices.Add(prevCurrent);
+        
     }
 
     public Dice GetNextDice()
