@@ -14,6 +14,7 @@ public class Multidie : Dice
             var newDieRigidbody = newDice.GetComponent<Rigidbody>();
             var direction = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
 
+            newDieScript.audioController = audioController;
             newDieScript.AllowExplosion();
             newDieRigidbody.AddForce(Vector3.up * 160f);
             newDieRigidbody.AddForce(-direction * 100f);
