@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(LineRenderer))]
@@ -42,7 +43,9 @@ public class Dice : MonoBehaviour
         {
             _forceSelectorActive = false;
             _rigidbody.isKinematic = false;
+            _rigidbody.AddForce(Vector3.up * 100f);
             _rigidbody.AddForce(-direction * 100f);
+            _rigidbody.AddTorque(Random.insideUnitSphere.normalized);
             _lineRenderer.enabled = false;
             return;
         }
