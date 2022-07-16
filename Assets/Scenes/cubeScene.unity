@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1518c92f09167be479bfea7f18a62b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePrefab: {fileID: 2940729371659666747, guid: 278e9ffaf93d41145b5e04f056a2bacf, type: 3}
 --- !u!1 &205016992
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1518c92f09167be479bfea7f18a62b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePrefab: {fileID: 0}
 --- !u!54 &205016994
 Rigidbody:
   m_ObjectHideFlags: 0

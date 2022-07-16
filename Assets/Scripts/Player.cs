@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +9,7 @@ public class Player : MonoBehaviour
     public int hp = 10;
     public int maxHp = 10;
 
-    private int _score = 0;
+    private int _score;
     public int scorePerTick = 1;
     public float tickTime = 1f;
     private float _nextTickTime;
@@ -19,7 +17,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hpTMP.text = $"💖 {hp}/{maxHp}";
+        hpTMP.text = $"hp: {hp} / {maxHp}";
     }
 
     // Update is called once per frame

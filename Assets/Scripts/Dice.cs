@@ -1,4 +1,4 @@
-using System;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,10 +9,16 @@ public class Dice : MonoBehaviour
     private Rigidbody _rigidbody;
     private LineRenderer _lineRenderer;
     private Camera _mainCamera;
-    
-    
-    private bool _shouldFollowCursor = false;
-    private bool _forceSelectorActive = false;
+
+    public GameObject damagePrefab;
+    private bool _shouldFollowCursor;
+    private bool _forceSelectorActive;
+
+    private Vector3 _lastPos;
+    private bool _didFireAfterRoll = true;
+    private float _didFireTimeout;
+
+    private Renderer _diceRenderer;
     
     private void Start()
     {
@@ -20,6 +26,28 @@ public class Dice : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
         _lineRenderer.enabled = false;
         _mainCamera = Camera.main;
+
+        _lastPos = transform.position;
+        _diceRenderer = gameObject.GetComponent<Renderer>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_didFireTimeout <= Time.time && _didFireTimeout != 0)
+        {
+            _didFireAfterRoll = false;
+            _didFireTimeout = 0;
+        }
+        
+        _diceRenderer.material.color = _lastPos == transform.position ? Color.green : Color.red;
+        
+        if (_lastPos == transform.position && !_didFireAfterRoll)
+        {
+            _didFireAfterRoll = true;
+            Instantiate(damagePrefab, transform.position, quaternion.identity);
+        }
+        
+        _lastPos = transform.position;
     }
 
     private void Update()
@@ -33,26 +61,28 @@ public class Dice : MonoBehaviour
             direction = (ray.origin + ray.direction.normalized * enterDistance) - transform.position;
         }
         
-        if (_forceSelectorActive)
+        if (_shouldFollowCursor)
         {
-            _lineRenderer.SetPositions(new []{transform.position,transform.position + direction});
-            Debug.DrawRay(transform.position, direction * 10);
+            var pos = transform.position;
+            _lineRenderer.enabled = true;
+            _lineRenderer.SetPositions(new []{pos, pos + direction});
+            Debug.DrawRay(pos, direction * 10);
         }
         
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
         {
             _forceSelectorActive = false;
             _rigidbody.isKinematic = false;
-            _rigidbody.AddForce(Vector3.up * 100f);
+            _rigidbody.AddForce(Vector3.up * 160f);
             _rigidbody.AddForce(-direction * 100f);
-            _rigidbody.AddTorque(Random.insideUnitSphere.normalized);
+            _rigidbody.AddTorque(Random.insideUnitSphere.normalized * 4);
             _lineRenderer.enabled = false;
+            _didFireTimeout = Time.time + 0.3f;
             return;
         }
         
         if (_shouldFollowCursor && Input.GetButtonDown("Fire1"))
         {
-            _lineRenderer.enabled = true;
             _forceSelectorActive = true;
             _shouldFollowCursor = false;
             return;
@@ -61,7 +91,7 @@ public class Dice : MonoBehaviour
         if (!Input.GetButtonUp("Fire1")) return;
         
         if (!Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Dice"))) return;
-        Debug.Log(hit.transform.name);
+
         if (!hit.transform.name.Equals("Dice")) return;
         _shouldFollowCursor = true;
     }
