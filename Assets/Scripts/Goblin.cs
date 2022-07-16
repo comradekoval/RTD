@@ -5,7 +5,8 @@ public class Goblin : MonoBehaviour
     private int _hp = 10;
     private bool _isLeftFoot = true;
     private float _nextAnimationTime;
-    
+
+    public int dmg = 1;
     public float speed = 0.01f;
     public float animationCooldown = 0.3f;
 
@@ -54,13 +55,11 @@ public class Goblin : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        Debug.Log("OCE");
-        Debug.Log(trigger.gameObject.tag);
+        if (!trigger.gameObject.CompareTag("Player")) return;
         
-        if (trigger.gameObject.CompareTag("Player"))
-        {
-            Die();
-        }
+        var playerScript = trigger.gameObject.GetComponent<Player>();
+        playerScript.GetDamage(dmg);
+        Die();
     }
 
     private void Die()

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422d38702b196e04891f9f03e1b7a444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmg: 1
   speed: 0.01
   animationCooldown: 0.3
 --- !u!65 &6343206929651458650
