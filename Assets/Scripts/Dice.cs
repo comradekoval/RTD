@@ -4,13 +4,17 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(Renderer))]
 public class Dice : MonoBehaviour
 {
+    public GameObject damagePrefab;
+    
     private Rigidbody _rigidbody;
     private LineRenderer _lineRenderer;
     private Camera _mainCamera;
+    private Renderer _diceRenderer;
 
-    public GameObject damagePrefab;
+    private DiceConveyorBelt _conveyorBelt = null;
     private bool _shouldFollowCursor;
     private bool _forceSelectorActive;
 
@@ -18,7 +22,11 @@ public class Dice : MonoBehaviour
     private bool _didFireAfterRoll = true;
     private float _didFireTimeout;
 
-    private Renderer _diceRenderer;
+
+    public void AddToConveyorBelt(DiceConveyorBelt conveyorBelt)
+    {
+        _conveyorBelt = conveyorBelt;
+    }
     
     private void Start()
     {
@@ -45,6 +53,7 @@ public class Dice : MonoBehaviour
         {
             _didFireAfterRoll = true;
             Instantiate(damagePrefab, transform.position, quaternion.identity);
+            Destroy(gameObject);
         }
         
         _lastPos = transform.position;
@@ -55,10 +64,12 @@ public class Dice : MonoBehaviour
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 100f);
         Vector3 direction = new Vector3();
+        Vector3 position = new Vector3();
         new Plane(Vector3.up, transform.position).Raycast(ray, out float enterDistance);
         if (enterDistance != 0)
         {
-            direction = (ray.origin + ray.direction.normalized * enterDistance) - transform.position;
+            position = ray.origin + ray.direction.normalized * enterDistance;
+            direction = position - transform.position;
         }
         
         if (_shouldFollowCursor)
@@ -66,7 +77,7 @@ public class Dice : MonoBehaviour
             var pos = transform.position;
             _lineRenderer.enabled = true;
             _lineRenderer.SetPositions(new []{pos, pos + direction});
-            Debug.DrawRay(pos, direction * 10);
+            transform.position = position;
         }
         
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
@@ -91,8 +102,8 @@ public class Dice : MonoBehaviour
         if (!Input.GetButtonUp("Fire1")) return;
         
         if (!Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Dice"))) return;
-
-        if (!hit.transform.name.Equals("Dice")) return;
+        if (hit.transform != transform) return;
         _shouldFollowCursor = true;
+        _conveyorBelt.RemoveDiceFromBelt(transform);
     }
 }
