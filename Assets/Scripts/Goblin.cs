@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Goblin : MonoBehaviour
@@ -56,14 +57,23 @@ public class Goblin : MonoBehaviour
         _nextAnimationTime = Time.time + animationCooldown;
         _isLeftFoot = !_isLeftFoot;
     }
-
+    
     private void OnTriggerEnter(Collider trigger)
     {
-        if (!trigger.gameObject.CompareTag("Player")) return;
+        if (trigger.gameObject.CompareTag("Trap"))
+        {
+            Die();
+            Destroy(trigger.gameObject);
+        }
         
-        var playerScript = trigger.gameObject.GetComponent<Player>();
-        playerScript.GetDamage(dmg);
-        Die();
+        if (trigger.gameObject.CompareTag("Player"))
+        {
+            var playerScript = trigger.gameObject.GetComponent<Player>();
+            playerScript.GetDamage(dmg);
+            Die();
+        }
+        
+    
     }
 
     private void Die()
