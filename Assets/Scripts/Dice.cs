@@ -12,9 +12,8 @@ public class Dice : MonoBehaviour
     private Rigidbody _rigidbody;
     private LineRenderer _lineRenderer;
     private Camera _mainCamera;
-    private Renderer _diceRenderer;
 
-    private DiceConveyorBelt _conveyorBelt = null;
+    private DiceConveyorBelt _conveyorBelt;
     private bool _shouldFollowCursor;
     private bool _forceSelectorActive;
 
@@ -36,7 +35,6 @@ public class Dice : MonoBehaviour
         _mainCamera = Camera.main;
 
         _lastPos = transform.position;
-        _diceRenderer = gameObject.GetComponent<Renderer>();
     }
 
     private void FixedUpdate()
@@ -46,13 +44,14 @@ public class Dice : MonoBehaviour
             _didFireAfterRoll = false;
             _didFireTimeout = 0;
         }
-        
-        _diceRenderer.material.color = _lastPos == transform.position ? Color.green : Color.red;
-        
+
         if (_lastPos == transform.position && !_didFireAfterRoll)
         {
             _didFireAfterRoll = true;
-            Instantiate(damagePrefab, transform.position, quaternion.identity);
+            var value = GetCurrentValue();
+            var dmgZone = Instantiate(damagePrefab, transform.position, quaternion.identity);
+
+            dmgZone.GetComponent<DamageZone>().dmg = value;
             Destroy(gameObject);
         }
         
@@ -105,5 +104,57 @@ public class Dice : MonoBehaviour
         if (hit.transform != transform) return;
         _shouldFollowCursor = true;
         _conveyorBelt.RemoveDiceFromBelt(transform);
+    }
+
+    private int GetCurrentValue()
+    {
+        Vector3 localHitNormalized;
+        var t = transform;
+        Ray ray = new Ray( t.position + (new Vector3(0, 2, 0) * t.localScale.magnitude), Vector3.up * -1);
+
+        if (GetComponent<Collider>().Raycast(ray, out var hit, 3 * transform.localScale.magnitude))
+        {
+            localHitNormalized = transform.InverseTransformPoint(hit.point.x, hit.point.y, hit.point.z).normalized;
+        }
+        else
+        {
+            return 0;
+        }
+        
+        var value = 0;
+        float delta = 1;
+        int side = 1;
+        Vector3 testHitVector;
+        do
+        {
+            testHitVector = HitVector(side);
+            if (testHitVector != Vector3.zero)
+            {
+                float nDelta = Mathf.Abs(localHitNormalized.x - testHitVector.x) + Mathf.Abs(localHitNormalized.y - testHitVector.y) + Mathf.Abs(localHitNormalized.z - testHitVector.z);
+                if (nDelta < delta)
+                {
+                    value = side;
+                    delta = nDelta;
+                }
+            }
+            side++;
+            // if we got a Vector.zero as the testHitVector we have checked all sides of this die
+        } while (testHitVector != Vector3.zero);
+
+        return value;
+    }
+
+    private Vector3 HitVector(int side)
+    {
+        switch (side)
+        {
+            case 1: return new Vector3(0F, 0F, -1F);
+            case 2: return new Vector3(-1F, 0F, 0F);
+            case 3: return new Vector3(0F, 1F, 0F);
+            case 4: return new Vector3(1F, 0F, 0F);
+            case 5: return new Vector3(0F, -1F, 0F);
+            case 6: return new Vector3(0F, 0F, 1F);
+        }
+        return Vector3.zero;
     }
 }
