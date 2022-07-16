@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hpTMP.text = $"hp: {hp} / {maxHp}";
+        hpTMP.text = $"{hp}/{maxHp}";
     }
 
     // Update is called once per frame
@@ -32,13 +32,13 @@ public class Player : MonoBehaviour
         _nextTickTime = Time.time + tickTime;
         
         _score += scorePerTick;
-        scoreTMP.text = $"score: {_score}";
+        scoreTMP.text = $"{_score}";
     }
 
     public void GetDamage(int dmg)
     {
         hp -= dmg;
-        hpTMP.text = $"hp: {hp} / {maxHp}";
+        hpTMP.text = $"{hp}/{maxHp}";
         
         if (hp <= 0)
         {

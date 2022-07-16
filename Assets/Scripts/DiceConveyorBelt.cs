@@ -41,7 +41,7 @@ public class DiceConveyorBelt : MonoBehaviour
         _beltMaterial.mainTextureOffset += new Vector2(conveyorSpeed * Time.deltaTime, 0);
         foreach (var diceOnBelt in dicesOnBelt)
         {
-            diceOnBelt.position += transform.right * conveyorSpeed * Time.deltaTime;
+            diceOnBelt.position += transform.right * (conveyorSpeed * Time.deltaTime);
         }
     }
 }

@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour
         if(_nextSpawnTime >= Time.time) return;
         _nextSpawnTime = Time.time + spawnCooldown;
         
-        var newGoblin = Instantiate(enemy, transform.position + new Vector3(0, 0.5f, Random.Range(-1.5f, +1.5f)), Quaternion.identity);
+        var newGoblin = Instantiate(enemy, transform.position + new Vector3(0, 0, Random.Range(-2, 2.1f)), Quaternion.identity);
         newGoblin.transform.Rotate(90f, 0, 0);
     }
 }
