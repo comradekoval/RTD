@@ -16,7 +16,14 @@ public class DiceConveyorBelt : MonoBehaviour
         dicesOnBelt.Add(dice.transform);
         dice.AddDiceToBelt(this);
 
-        dice.transform.position = beltStartPosition.position;
+        var startPos = beltStartPosition.position;
+
+        dice.transform.position = startPos;
+
+        var initialValue = Random.Range(1, dice.GetMaxValue() + 1);
+        var newUp = dice.GetComponent<Dice>().GetVectorForSide(initialValue);
+
+        dice.transform.rotation = Quaternion.FromToRotation(newUp, Vector3.up);
     }
     
     public void RemoveDiceFromBelt(Transform diceTransform)
@@ -34,7 +41,7 @@ public class DiceConveyorBelt : MonoBehaviour
         _beltMaterial.mainTextureOffset += new Vector2(conveyorSpeed * Time.deltaTime, 0);
         foreach (var diceOnBelt in dicesOnBelt)
         {
-            diceOnBelt.position += transform.right * conveyorSpeed * Time.deltaTime;
+            diceOnBelt.position += transform.right * (conveyorSpeed * Time.deltaTime);
         }
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1249258376157065754}
   - component: {fileID: 1249258376157065755}
   m_Layer: 7
-  m_Name: D6 Variant
+  m_Name: d6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 1249258376157065756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 40.555, z: 0}
 --- !u!33 &1249258376157065750
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!120 &1249258376157065754
 LineRenderer:
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1249258376157065756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1518c92f09167be479bfea7f18a62b9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7531e89c67f67b64dbc093deecc655cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damagePrefab: {fileID: 2940729371659666747, guid: 278e9ffaf93d41145b5e04f056a2bacf, type: 3}
