@@ -35,17 +35,21 @@ public class EnemyManager : MonoBehaviour
     private int _currentWaveIndex = -1;
     private Goblin _currentBoss;
     private float _nextSpawnTime;
-    
+
     
     public GameObject dropTip;
     public GameObject rollTip;
     public GameObject shopTip;
-    private Vector3 shopTipPos;
-    private Vector3 dropTipPos;
-    private Vector3 rollTipPos;
-    private bool showShopTip = true;
-    private bool showDropTip = true;
-    private bool showRollTip = true;
+    private Vector3 _shopTipPos;
+    private Vector3 _dropTipPos;
+    private Vector3 _rollTipPos;
+    private bool _showShopTip = true;
+    private bool _showDropTip = true;
+    private bool _showRollTip = true;
+    private bool _isShowingShop = false;
+    private bool _isShowingDrop = false;
+    private bool _isShowingRoll = false;
+    
     public static bool didDropADie = false;
     public static bool didRollADie = false;
     
@@ -53,9 +57,9 @@ public class EnemyManager : MonoBehaviour
     {
         didDropADie = false;
         didRollADie = false;
-        shopTipPos = HideTip(shopTip);
-        dropTipPos = HideTip(dropTip);
-        rollTipPos = HideTip(rollTip);
+        _shopTipPos = HideTip(shopTip);
+        _dropTipPos = HideTip(dropTip);
+        _rollTipPos = HideTip(rollTip);
     }
 
     private void Update()
@@ -151,20 +155,23 @@ public class EnemyManager : MonoBehaviour
 
     private void MaybeShowHint()
     {
-        if (_currentWave.name == "Try dice" && showShopTip)
+        if (_currentWave.name == "Try dice" && _showShopTip && !_isShowingDrop)
         {
-            showShopTip = false;
-            shopTip.transform.position = shopTipPos;
+            _isShowingShop = true;
+            _showShopTip = false;
+            shopTip.transform.position = _shopTipPos;
         }
-        if (_currentWave.name == "Tutorial" && showRollTip)
+        if (_currentWave.name == "Tutorial" && _showRollTip)
         {
-            showRollTip = false;
-            rollTip.transform.position = rollTipPos;
+            _isShowingRoll = true;
+            _showRollTip = false;
+            rollTip.transform.position = _rollTipPos;
         }
-        if (_currentWave.name == "Tutorial" && showDropTip)
+        if (_currentWave.name == "Tutorial" && _showDropTip)
         {
-            showDropTip = false;
-            dropTip.transform.position = dropTipPos;
+            _isShowingDrop = true;
+            _showDropTip = false;
+            dropTip.transform.position = _dropTipPos;
         }
     }
     
@@ -172,19 +179,22 @@ public class EnemyManager : MonoBehaviour
     {
         if (shop.DidBuy())
         {
-            showShopTip = false;
+            _isShowingShop = false;
+            _showShopTip = false;
             HideTip(shopTip);
         }
 
         if (didRollADie)
         {
-            showRollTip = false;
+            _isShowingRoll = false;
+            _showRollTip = false;
             HideTip(rollTip);
         }
         
         if (didDropADie)
         {
-            showDropTip = false;
+            _isShowingDrop = false;
+            _showDropTip = false;
             HideTip(dropTip);
         }
     }
