@@ -14,7 +14,7 @@ public class ProgressBar : MonoBehaviour
     private void Update()
     {
         float progressOffset = (100f - progress) / 100f;
-        mask.localPosition = new Vector3(-progressOffset, 0, 0);
+        mask.localPosition = new Vector3(-progressOffset/2, 0, 0);
         mask.localScale = new Vector3(mask.localScale.x, 1 - progressOffset, mask.localScale.z);
         
         if (colors.Count <= 0) return;
