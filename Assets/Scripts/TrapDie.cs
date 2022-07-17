@@ -11,12 +11,12 @@ public class TrapDie : Dice
         {
             var newDice = Instantiate(explodeInto, transform.position, Quaternion.identity);
             
-            var newDieRigidbody = newDice.GetComponent<Rigidbody>();
-            var direction = new Vector3(Random.Range(-maxForce, maxForce), Random.Range(-maxForce, maxForce), Random.Range(-maxForce, maxForce));
-            
-            newDieRigidbody.AddForce(Vector3.up * 160f);
-            newDieRigidbody.AddForce(-direction * 100f);
-            newDieRigidbody.AddTorque(Random.insideUnitSphere.normalized * 4);
+            var direction = new Vector3(Random.Range(-maxForce, maxForce), 0, Random.Range(-maxForce, maxForce));
+            newDice.GetComponent<Trap>().SetTargetPosition(transform.position + direction); 
+            //newDice.transform.position = transform.position + direction;
+            //newDieRigidbody.AddForce(Vector3.up * 160f);
+            //newDieRigidbody.AddForce(-direction * 100f);
+            //newDieRigidbody.AddTorque(Random.insideUnitSphere.normalized * 4);
         }
         Destroy(gameObject);
     }
