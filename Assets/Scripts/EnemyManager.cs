@@ -128,7 +128,6 @@ public class EnemyManager : MonoBehaviour
             _currentWaveIndex++;
             if (_currentWave.name == "endless")
             {
-                endlessWave.conveyorSpeed += 0.2f;
                 endlessWave.diceSpawnInterval -= 0.1f;
                 endlessWave.enemySpeedMultiplier += 0.2f;
                 endlessWave.enemySpawnIntervalMax -= 0.1f;
