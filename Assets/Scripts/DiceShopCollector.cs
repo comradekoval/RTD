@@ -9,8 +9,6 @@ public class DiceShopCollector : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.layer);
-        Debug.Log(LayerMask.NameToLayer("Dice"));
         if (other.gameObject.layer != LayerMask.NameToLayer("Dice")) return;
         other.GetComponent<Dice>().CollectDice(shop);
     }

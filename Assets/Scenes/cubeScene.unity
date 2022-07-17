@@ -2995,8 +2995,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1d8c4bc1101214f907fb997a07e68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCooldown: 3
-  enemy: {fileID: 6343206929651458646, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+  player: {fileID: 2032937213}
+  dbc: {fileID: 2126446250}
+  dcb: {fileID: 1784136342}
+  spawnableEnemies:
+  - enemyPrefab: {fileID: 6343206929651458644, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+    enemyType: 0
+  waves:
+  - name: Tutorial
+    restPeriod: 3.8
+    enemySpawnIntervalMin: 3
+    enemySpawnIntervalMax: 4
+    goblinSpeed: 0.01
+    conveyorSpeed: 2
+    diceSpawnInterval: 1.5
+    power: 3
+    boss: 1
+  - name: Try dice
+    restPeriod: 8
+    enemySpawnIntervalMin: 0.92
+    enemySpawnIntervalMax: 2
+    goblinSpeed: 0.015
+    conveyorSpeed: 2
+    diceSpawnInterval: 2
+    power: 10
+    boss: 1
+  endlessWavePowerUp: 5
 --- !u!1 &1781860191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3949,6 +3973,7 @@ MonoBehaviour:
   bagDices: 000000000000000001000000
   diceConveyorBelt: {fileID: 1784136342}
   timeBetweenSpawns: 1
+  currentSpawnTimer: 0
 --- !u!4 &2126446251
 Transform:
   m_ObjectHideFlags: 0

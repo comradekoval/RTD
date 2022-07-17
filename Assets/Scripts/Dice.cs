@@ -165,7 +165,7 @@ public abstract class Dice : MonoBehaviour
             // if we got a Vector.zero as the testHitVector we have checked all sides of this die
         } while (testHitVector != Vector3.zero);
 
-        Debug.Log(value);
+        // Debug.Log(value);
         
         return value;
     }

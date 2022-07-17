@@ -11,7 +11,7 @@ public class PlayerDiceBagController : MonoBehaviour
     public float timeBetweenSpawns = 1f; 
     
     private int _currentDice = 0;
-    private float _currentSpawnTimer = 0f;
+    public float currentSpawnTimer = 0f;
 
     public void AddDiceToBag(DiceType diceType)
     {
@@ -51,15 +51,14 @@ public class PlayerDiceBagController : MonoBehaviour
 
     private void Start()
     {
-        _currentSpawnTimer -= 5f;
         UnityEngine.Random.InitState((int)(DateTimeOffset.Now.ToUnixTimeSeconds() % int.MaxValue));
     }
 
     private void Update()
     {
-        _currentSpawnTimer += Time.deltaTime;
-        if (!(_currentSpawnTimer >= timeBetweenSpawns)) return;
-        _currentSpawnTimer -= timeBetweenSpawns;
+        currentSpawnTimer += Time.deltaTime;
+        if (!(currentSpawnTimer >= timeBetweenSpawns)) return;
+        currentSpawnTimer -= timeBetweenSpawns;
         diceConveyorBelt.AddDiceToBelt(GetNextDice());
     }
 }
