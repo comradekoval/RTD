@@ -113,7 +113,7 @@ public abstract class Dice : MonoBehaviour
             return;
         }
 
-        if (!Input.GetButtonUp("Fire1")) return;
+        if (!Input.GetButtonDown("Fire1")) return;
 
         if (!Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Dice"))) return;
         if (hit.transform != transform) return;
