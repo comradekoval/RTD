@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
-    private int _hp = 6;
-    private int _maxHp = 6;
+    public int hp = 1;
+    public int maxHp = 6;
     private bool _isLeftFoot = true;
     private float _nextAnimationTime;
 
@@ -17,7 +17,7 @@ public class Goblin : MonoBehaviour
     {
         _nextAnimationTime = Time.time + animationCooldown;
         transform.Rotate(0, -5.0f, 0.0f, Space.World);
-        _maxHp = _hp;
+        hp = maxHp;
     }
 
     // Update is called once per frame
@@ -29,15 +29,15 @@ public class Goblin : MonoBehaviour
     private void Update()
     {
         AnimateWalk();
-        progressBar.progress = _hp / (float)_maxHp * 100f;
+        progressBar.progress = hp / (float)maxHp * 100f;
     }
 
     public void ReceiveDamage(int dmg)
     {
-        _hp -= dmg;
-        if (_hp > 0) return;
+        hp -= dmg;
+        if (hp > 0) return;
         
-        _hp = 0;
+        hp = 0;
         Die();
     }
     

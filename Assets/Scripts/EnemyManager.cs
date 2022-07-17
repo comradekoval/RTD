@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
     
     private Wave _currentWave;
     private int _currentWavePowerLeft;
-    private bool _didSpawnBoss = false;
+    private bool _willSpawnBoss = false;
     public Wave endlessWave = new Wave()
     {
         name = "endless",
@@ -29,18 +29,59 @@ public class EnemyManager : MonoBehaviour
     };
     private readonly List<int> _completedWaves= new List<int>{};
     private int _currentWaveIndex = -1;
+    private Goblin _currentBoss;
     private float _nextSpawnTime;
 
     private static readonly Quaternion SpriteOrientation = Quaternion.LookRotation(Vector3.down);
 
     private void Update()
     {
+        // game over mode
         if (player.hp <= 0)
         {
             dcb.conveyorSpeed = 0;
             dbc.currentSpawnTimer = -100000f;
             return;
         }
+
+        if (_willSpawnBoss)
+        {
+            MaybeSpawnGoblin();
+            return;
+        }
+        
+        if (_currentBoss && _currentBoss.hp > 0)
+        {
+            return;
+        }
+
+        MaybeSwitchWave();
+        MaybeSpawnGoblin();
+    }
+
+    private void MaybeSpawnGoblin()
+    {
+        if(_nextSpawnTime >= Time.time) return;
+        _nextSpawnTime = Time.time + (Random.Range(_currentWave.enemySpawnIntervalMin, _currentWave.enemySpawnIntervalMax));
+
+        if (_willSpawnBoss)
+        {
+            _willSpawnBoss = false;
+            _currentBoss = SpawnEnemyByType(_currentWave.boss, Vector3.zero);
+            return;
+        }
+        
+        _currentWavePowerLeft--;
+        SpawnEnemyByType(EnemyType.Goblin, new Vector3(0, 0, Random.Range(-2, 2.1f)));   
+        
+        if (_currentWavePowerLeft <= 0  && _currentWave.boss != EnemyType.None)
+        {
+            _willSpawnBoss = true;
+        }
+    }
+
+    private void MaybeSwitchWave()
+    {
         if (_currentWavePowerLeft == 0)
         {
             _completedWaves.Add(_currentWaveIndex);
@@ -65,27 +106,11 @@ public class EnemyManager : MonoBehaviour
 
             dbc.timeBetweenSpawns = _currentWave.diceSpawnInterval;
             dcb.conveyorSpeed = _currentWave.conveyorSpeed;
-        }
-        
-        MaybeSpawnGoblin();
-    }
 
-    private void MaybeSpawnGoblin()
-    {
-        if(_nextSpawnTime >= Time.time) return;
-        
-        _nextSpawnTime = Time.time + (Random.Range(_currentWave.enemySpawnIntervalMin, _currentWave.enemySpawnIntervalMax));
-        _currentWavePowerLeft--;
-
-        if (_currentWavePowerLeft == 0 && !_didSpawnBoss && _currentWave.boss != EnemyType.None)
-        {
-            SpawnEnemyByType(_currentWave.boss, Vector3.zero);
+            _willSpawnBoss = false;
         }
-        
-        SpawnEnemyByType(EnemyType.Goblin, new Vector3(0, 0, Random.Range(-2, 2.1f)));
     }
-    
-    private void SpawnEnemyByType(EnemyType enemyType, Vector3 offset)
+    private Goblin SpawnEnemyByType(EnemyType enemyType, Vector3 offset)
     {
         var enemyToSpawn = spawnableEnemies.Find(enemy => enemy.enemyType == enemyType);
         var newEnemy = Instantiate(enemyToSpawn.enemyPrefab, transform.position + offset, SpriteOrientation);
@@ -94,6 +119,8 @@ public class EnemyManager : MonoBehaviour
         {
             newEnemy.speed = _currentWave.goblinSpeed;
         }
+
+        return newEnemy;
     }
 }
 
@@ -101,6 +128,7 @@ public class EnemyManager : MonoBehaviour
 public enum EnemyType
 {
     Goblin,
+    Dementius,
     None
 }
 
