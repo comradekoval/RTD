@@ -128,7 +128,6 @@ public class EnemyManager : MonoBehaviour
             _currentWaveIndex++;
             if (_currentWave.name == "endless")
             {
-                endlessWave.conveyorSpeed += 0.2f;
                 endlessWave.diceSpawnInterval -= 0.1f;
                 endlessWave.enemySpeedMultiplier += 0.2f;
                 endlessWave.enemySpawnIntervalMax -= 0.1f;
@@ -155,7 +154,7 @@ public class EnemyManager : MonoBehaviour
 
     private void MaybeShowHint()
     {
-        if (_currentWave.name == "Try dice" && _showShopTip && !_isShowingDrop)
+        if (_currentWave.name == "Try dice" && _showShopTip && !_isShowingRoll)
         {
             _isShowingShop = true;
             _showShopTip = false;
