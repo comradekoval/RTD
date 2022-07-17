@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public TextMeshPro hpTMP;
     public TextMeshPro scoreTMP;
+    public GameState gameState;
 
     public int hp = 10;
     public int maxHp = 10;
@@ -39,10 +40,9 @@ public class Player : MonoBehaviour
     {
         hp -= dmg;
         hpTMP.text = $"{hp}/{maxHp}";
-        
-        if (hp <= 0)
-        {
-            scorePerTick = 0;
-        }
+
+        if (hp > 0) return;
+        scorePerTick = 0;
+        gameState.EndGame(_score);
     }
 }
