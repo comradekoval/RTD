@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     public PlayerDiceBagController dbc;
     public DiceConveyorBelt dcb;
     public GameState gameState;
-    
+
     public List<SpawnableEnemy> spawnableEnemies;
     public List<Wave> waves;
     
