@@ -2566,7 +2566,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 013793f3b29e49543be483890cd54fdd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.45
+  m_Volume: 0.234
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3854,7 +3854,7 @@ MonoBehaviour:
     conveyorSpeed: 2
     diceSpawnInterval: 2
     power: 15
-    enemyTypes: 00000000
+    enemyTypes: 0000000002000000
     boss: 1
   endlessWave:
     name: endless
