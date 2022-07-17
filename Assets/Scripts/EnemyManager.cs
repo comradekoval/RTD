@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class EnemyManager : MonoBehaviour
 {
+
+    public Shop shop;
     public Player player;
     public PlayerDiceBagController dbc;
     public DiceConveyorBelt dcb;
@@ -32,6 +34,22 @@ public class EnemyManager : MonoBehaviour
     private int _currentWaveIndex = -1;
     private Goblin _currentBoss;
     private float _nextSpawnTime;
+    
+    
+    public GameObject rollTip;
+    public GameObject shopTip;
+    private Vector3 shopTipPos;
+    private Vector3 rollTipPos;
+    private bool showShopTip = true;
+    private bool showRollTip = true;
+    public static bool didDropADie = false;
+    public static bool didRollADie = false;
+    
+    private void Start()
+    {
+        shopTipPos = HideTip(shopTip);
+        rollTipPos = HideTip(rollTip);
+    }
 
     private void Update()
     {
@@ -56,6 +74,8 @@ public class EnemyManager : MonoBehaviour
 
         MaybeSwitchWave();
         MaybeSpawnGoblin();
+        MaybeHideHint();
+        MaybeShowHint();
     }
 
     private void MaybeSpawnGoblin()
@@ -119,6 +139,43 @@ public class EnemyManager : MonoBehaviour
         var enemyToSpawn = spawnableEnemies.Find(enemy => enemy.enemyType == enemyType);
         var newEnemy = Instantiate(enemyToSpawn.enemyPrefab, transform.position + offset, Quaternion.identity);
         return newEnemy;
+    }
+
+    private void MaybeShowHint()
+    {
+        if (_currentWave.name == "Try dice" && showShopTip)
+        {
+            showShopTip = false;
+            shopTip.transform.position = shopTipPos;
+        }
+        if (_currentWave.name == "Tutorial" && showRollTip)
+        {
+            showRollTip = false;
+            shopTip.transform.position = rollTipPos;
+        }
+    }
+    
+    private void MaybeHideHint()
+    {
+        Debug.Log($"DD {didDropADie} DR {didRollADie}");
+        if (shop.DidBuy())
+        {
+            showShopTip = false;
+            HideTip(shopTip);
+        }
+
+        if (didDropADie && didRollADie)
+        {
+            showRollTip = false;
+            HideTip(rollTip);
+        }
+    }
+
+    private static Vector3 HideTip(GameObject tip)
+    {
+        var pos = tip.transform.position;
+        tip.transform.position = Vector3.forward * 200;
+        return pos;
     }
 }
 

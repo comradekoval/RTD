@@ -89,6 +89,16 @@ public abstract class Dice : MonoBehaviour
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
         {
             AllowExplosion();
+            
+            if (direction.magnitude > 1)
+            {
+                EnemyManager.didRollADie = true;
+            }
+            else
+            {
+                EnemyManager.didDropADie = true;
+            }
+            
             _rigidbody.AddForce(Vector3.up * direction.magnitude / 10, ForceMode.VelocityChange);
             _rigidbody.AddForce(-direction, ForceMode.VelocityChange);
             _rigidbody.AddTorque(Random.insideUnitSphere.normalized * (direction.magnitude * 8));

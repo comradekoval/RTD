@@ -11,6 +11,13 @@ public class Shop : MonoBehaviour
     public TextMeshPro text;
     public int money = 100;
 
+    private bool _didBuy = false;
+    
+    public bool DidBuy()
+    {
+        return _didBuy;
+    }
+
     public void AddMoney(int getCurrentValue)
     {
         money += getCurrentValue;
@@ -18,6 +25,7 @@ public class Shop : MonoBehaviour
 
     public void BuyDice(string diceName)
     {
+        _didBuy = true;
         if (Enum.TryParse(diceName, out DiceType diceType))
         {
             int dicePriceForType = dicePrices.Find(dicePrice => dicePrice.diceType == diceType).price;
