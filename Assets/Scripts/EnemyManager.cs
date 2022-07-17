@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -72,7 +73,11 @@ public class EnemyManager : MonoBehaviour
         }
         
         _currentWavePowerLeft--;
-        SpawnEnemyByType(EnemyType.Goblin, new Vector3(0, 0, Random.Range(-2, 2.1f)));   
+        var goblin = SpawnEnemyByType(EnemyType.Goblin, new Vector3(0, 0, Random.Range(-2, 2.1f)));
+        if (_currentWave.goblinSpeed != 0)
+        {
+            goblin.speed = _currentWave.goblinSpeed;
+        }
         
         if (_currentWavePowerLeft <= 0  && _currentWave.boss != EnemyType.None)
         {
@@ -114,12 +119,6 @@ public class EnemyManager : MonoBehaviour
     {
         var enemyToSpawn = spawnableEnemies.Find(enemy => enemy.enemyType == enemyType);
         var newEnemy = Instantiate(enemyToSpawn.enemyPrefab, transform.position + offset, SpriteOrientation);
-
-        if (_currentWave.goblinSpeed != 0)
-        {
-            newEnemy.speed = _currentWave.goblinSpeed;
-        }
-
         return newEnemy;
     }
 }
@@ -128,7 +127,7 @@ public class EnemyManager : MonoBehaviour
 public enum EnemyType
 {
     Goblin,
-    Dementius,
+    [UsedImplicitly] Dementius,
     None
 }
 
