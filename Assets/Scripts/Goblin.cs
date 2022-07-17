@@ -16,7 +16,7 @@ public class Goblin : MonoBehaviour
     public float animationCooldown = 0.3f;
     public ProgressBar progressBar;
 
-    public float inTrapDelay = 1f;
+    public float inTrapDelay = 3f;
     
     private float _trapEscapeTime = 0;
     private bool _isTrapped = false;
@@ -96,13 +96,19 @@ public class Goblin : MonoBehaviour
 
     private void GetTrapped(GameObject trap)
     {
-        if (!canBeTrapped) return;
-        _isTrapped = true;
-        normal.enabled = false;
-        trapped.enabled = true;
+        
+        if(_isTrapped) return;
+
+        if (canBeTrapped)
+        {
+            _isTrapped = true;
+            normal.enabled = false;
+            trapped.enabled = true;
+            _trapEscapeTime = Time.time + inTrapDelay;
+        }
+
         Destroy(trap.gameObject);
         ReceiveDamage(2);
-        _trapEscapeTime = Time.time + inTrapDelay;
     }
     
     private void Die()
