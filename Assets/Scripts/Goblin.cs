@@ -71,16 +71,21 @@ public class Goblin : MonoBehaviour
     
     private void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.gameObject.CompareTag("Trap"))
-        {
-            GetTrapped(trigger.gameObject);
-        }
+        
         
         if (trigger.gameObject.CompareTag("Player"))
         {
             var playerScript = trigger.gameObject.GetComponent<Player>();
             playerScript.GetDamage(dmg);
             Die();
+        }
+    }
+
+    private void OnTriggerStay(Collider trigger)
+    {
+        if (trigger.gameObject.CompareTag("Trap"))
+        {
+            GetTrapped(trigger.gameObject);
         }
     }
 
