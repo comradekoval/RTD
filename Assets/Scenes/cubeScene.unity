@@ -3895,6 +3895,10 @@ PrefabInstance:
       propertyPath: trapped
       value: 
       objectReference: {fileID: 1889201220}
+    - target: {fileID: 1547794616943442126, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+      propertyPath: inTrapDelay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1547794616943442127, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -4115,6 +4119,10 @@ PrefabInstance:
     - target: {fileID: 7087442562061327571, guid: cddaa4846a8849945be2803e86b64e32, type: 3}
       propertyPath: m_Name
       value: Pig
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087442562061327572, guid: cddaa4846a8849945be2803e86b64e32, type: 3}
+      propertyPath: inTrapDelay
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cddaa4846a8849945be2803e86b64e32, type: 3}
