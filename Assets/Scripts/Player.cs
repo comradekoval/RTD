@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public TextMeshPro hpTMP;
     public TextMeshPro scoreTMP;
     public GameState gameState;
+    public ScreenShake screenShake;
 
     public int hp = 10;
     public int maxHp = 10;
@@ -40,7 +41,8 @@ public class Player : MonoBehaviour
     {
         hp -= dmg;
         hpTMP.text = $"{hp}/{maxHp}";
-
+        screenShake.ShakeScreen();
+        
         if (hp > 0) return;
         scorePerTick = 0;
         gameState.EndGame(_score);
