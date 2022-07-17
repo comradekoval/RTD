@@ -3839,7 +3839,7 @@ MonoBehaviour:
     conveyorSpeed: 2
     diceSpawnInterval: 2
     power: 15
-    enemyTypes: 00000000
+    enemyTypes: 0000000002000000
     boss: 1
   endlessWave:
     name: endless
