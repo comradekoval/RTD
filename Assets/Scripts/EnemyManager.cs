@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     public Player player;
     public PlayerDiceBagController dbc;
     public DiceConveyorBelt dcb;
+    public GameState gameState;
     
     public List<SpawnableEnemy> spawnableEnemies;
     public List<Wave> waves;
@@ -87,6 +88,7 @@ public class EnemyManager : MonoBehaviour
         {
             _willSpawnBoss = false;
             _currentBoss = SpawnEnemyByType(_currentWave.boss, Vector3.zero);
+            gameState.CallDementius();
             return;
         }
         
