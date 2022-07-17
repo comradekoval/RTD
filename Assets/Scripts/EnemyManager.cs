@@ -33,8 +33,6 @@ public class EnemyManager : MonoBehaviour
     private Goblin _currentBoss;
     private float _nextSpawnTime;
 
-    private static readonly Quaternion SpriteOrientation = Quaternion.LookRotation(Vector3.down);
-
     private void Update()
     {
         // game over mode
@@ -118,7 +116,7 @@ public class EnemyManager : MonoBehaviour
     private Goblin SpawnEnemyByType(EnemyType enemyType, Vector3 offset)
     {
         var enemyToSpawn = spawnableEnemies.Find(enemy => enemy.enemyType == enemyType);
-        var newEnemy = Instantiate(enemyToSpawn.enemyPrefab, transform.position + offset, SpriteOrientation);
+        var newEnemy = Instantiate(enemyToSpawn.enemyPrefab, transform.position + offset, Quaternion.identity);
         return newEnemy;
     }
 }

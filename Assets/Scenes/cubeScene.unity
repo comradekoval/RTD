@@ -3998,6 +3998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dementius
       objectReference: {fileID: 0}
+    - target: {fileID: 3048486920723370497, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
 --- !u!4 &7969847112919107019 stripped
