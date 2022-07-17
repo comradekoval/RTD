@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Goblin : MonoBehaviour
 {
+    public SpriteRenderer normal;
+    public SpriteRenderer trapped;
+    public bool canBeTrapped = true;
     public int hp = 1;
     public int maxHp = 6;
     private bool _isLeftFoot = true;
@@ -13,6 +16,11 @@ public class Goblin : MonoBehaviour
     public float animationCooldown = 0.3f;
     public ProgressBar progressBar;
 
+    public float inTrapDelay = 1f;
+    
+    private float _trapEscapeTime = 0;
+    private bool _isTrapped = false;
+
     private void Start()
     {
         _nextAnimationTime = Time.time + animationCooldown;
@@ -22,19 +30,21 @@ public class Goblin : MonoBehaviour
 
     // Update is called once per frame
     private void FixedUpdate()
-    { 
+    {
+        if (_isTrapped) return;
         transform.position += new Vector3(speed, 0, 0);
     }
 
     private void Update()
     {
+        MaybeEscapeTrap();
         AnimateWalk();
         progressBar.progress = hp / (float)maxHp * 100f;
     }
 
-    public void ReceiveDamage(int dmg)
+    public void ReceiveDamage(int dmgToReceive)
     {
-        hp -= dmg;
+        hp -= dmgToReceive;
         if (hp > 0) return;
         
         hp = 0;
@@ -43,6 +53,7 @@ public class Goblin : MonoBehaviour
     
     private void AnimateWalk()
     {
+        if(_isTrapped) return;
         if(_nextAnimationTime >= Time.time) return;
        
         if (_isLeftFoot)
@@ -62,8 +73,7 @@ public class Goblin : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Trap"))
         {
-            ReceiveDamage(2);
-            Destroy(trigger.gameObject);
+            GetTrapped(trigger.gameObject);
         }
         
         if (trigger.gameObject.CompareTag("Player"))
@@ -72,10 +82,28 @@ public class Goblin : MonoBehaviour
             playerScript.GetDamage(dmg);
             Die();
         }
-        
-    
     }
 
+    private void MaybeEscapeTrap()
+    {
+        if(_trapEscapeTime >= Time.time) return;
+
+        _isTrapped = false;
+        normal.enabled = true;
+        trapped.enabled = false;
+        _trapEscapeTime = 0;
+    }
+
+    private void GetTrapped(GameObject trap)
+    {
+        _isTrapped = true;
+        normal.enabled = false;
+        trapped.enabled = true;
+        Destroy(trap.gameObject);
+        ReceiveDamage(2);
+        _trapEscapeTime = Time.time + inTrapDelay;
+    }
+    
     private void Die()
     {
         Destroy(gameObject);
