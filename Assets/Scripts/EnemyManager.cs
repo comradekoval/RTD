@@ -159,7 +159,6 @@ public class EnemyManager : MonoBehaviour
     
     private void MaybeHideHint()
     {
-        Debug.Log($"DD {didDropADie} DR {didRollADie}");
         if (shop.DidBuy())
         {
             showShopTip = false;
