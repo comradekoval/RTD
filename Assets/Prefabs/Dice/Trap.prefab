@@ -225,4 +225,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePrefab: {fileID: 2940729371659666747, guid: 278e9ffaf93d41145b5e04f056a2bacf, type: 3}
+  audioController: {fileID: 0}
   explodeInto: {fileID: 5425296746490885140, guid: 1c3147695d671c54a94a71f626b6be1c, type: 3}
+  maxForce: 1
