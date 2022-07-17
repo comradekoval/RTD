@@ -18,9 +18,6 @@ public class ProgressBar : MonoBehaviour
         mask.localScale = new Vector3(mask.localScale.x, 1 - progressOffset, mask.localScale.z);
         
         if (colors.Count <= 0) return;
-        Debug.Log(progress * colors.Count / 100f);
-        Debug.Log((int)(progress * colors.Count / 100f));
-        Debug.Log($"clamped {Mathf.Clamp((int) (progress * colors.Count / 100f), 0, colors.Count - 1)}");
         var newColor = colors[Mathf.Clamp((int) (progress * colors.Count / 100f), 0, colors.Count - 1)];
         upperBar.color = newColor;
     }
