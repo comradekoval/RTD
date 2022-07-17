@@ -51,6 +51,7 @@ public class PlayerDiceBagController : MonoBehaviour
 
     private void Start()
     {
+        _currentSpawnTimer -= 5f;
         UnityEngine.Random.InitState((int)(DateTimeOffset.Now.ToUnixTimeSeconds() % int.MaxValue));
     }
 

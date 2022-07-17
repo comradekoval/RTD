@@ -38,7 +38,7 @@ public class Shop : MonoBehaviour
 
     private void Update()
     {
-        text.text = $"money: {money}";
+        text.text = $"{money}";
     }
 }
 
