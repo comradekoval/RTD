@@ -28,7 +28,6 @@ public class Goblin : MonoBehaviour
         hp = maxHp;
     }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
         if (_isTrapped) return;
