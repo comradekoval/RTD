@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Shop : MonoBehaviour
 {
@@ -37,11 +38,6 @@ public class Shop : MonoBehaviour
         {
             Debug.LogError("wrong diceName");
         }
-    }
-
-    public void BuyDiceA(DiceType type)
-    {
-        
     }
 
     private void Update()
