@@ -13,7 +13,7 @@ public abstract class Dice : MonoBehaviour
     private Rigidbody _rigidbody;
     private LineRenderer _lineRenderer;
     private Camera _mainCamera;
-    
+
     private DiceConveyorBelt _conveyorBelt;
     private bool _shouldFollowCursor;
     private bool _forceSelectorActive;
@@ -33,7 +33,7 @@ public abstract class Dice : MonoBehaviour
         _conveyorBelt.RemoveDiceFromBelt(transform);
         Destroy(gameObject);
     }
-    
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -58,7 +58,7 @@ public abstract class Dice : MonoBehaviour
             _didFireAfterRoll = true;
             OnExplode();
         }
-        
+
         _lastPos = transform.position;
     }
 
@@ -73,7 +73,7 @@ public abstract class Dice : MonoBehaviour
             position = ray.origin + ray.direction.normalized * enterDistance;
             direction = position - transform.position;
         }
-        
+
         if (_shouldFollowCursor)
         {
             _rigidbody.isKinematic = true;
@@ -83,18 +83,18 @@ public abstract class Dice : MonoBehaviour
         if (_forceSelectorActive)
         {
             var pos = transform.position;
-            _lineRenderer.SetPositions(new []{pos, pos + direction});
+            _lineRenderer.SetPositions(new[] {pos, pos + direction});
         }
-        
+
         if (_forceSelectorActive && Input.GetButtonUp("Fire1"))
         {
             AllowExplosion();
-            _rigidbody.AddForce(Vector3.up * direction.magnitude / 10, ForceMode.VelocityChange );
+            _rigidbody.AddForce(Vector3.up * direction.magnitude / 10, ForceMode.VelocityChange);
             _rigidbody.AddForce(-direction, ForceMode.VelocityChange);
             _rigidbody.AddTorque(Random.insideUnitSphere.normalized * (direction.magnitude * 8));
             return;
         }
-        
+
         if (_shouldFollowCursor && Input.GetButtonDown("Fire1"))
         {
             _forceSelectorActive = true;
@@ -104,7 +104,7 @@ public abstract class Dice : MonoBehaviour
         }
 
         if (!Input.GetButtonUp("Fire1")) return;
-        
+
         if (!Physics.Raycast(ray, out RaycastHit hit, 100, LayerMask.GetMask("Dice"))) return;
         if (hit.transform != transform) return;
         _shouldFollowCursor = true;
@@ -134,7 +134,7 @@ public abstract class Dice : MonoBehaviour
     {
         Vector3 localHitNormalized;
         var t = transform;
-        Ray ray = new Ray( t.position + (new Vector3(0, 2, 0) * t.localScale.magnitude), Vector3.up * -1);
+        Ray ray = new Ray(t.position + (new Vector3(0, 2, 0) * t.localScale.magnitude), Vector3.up * -1);
 
         if (GetComponent<Collider>().Raycast(ray, out var hit, 3 * transform.localScale.magnitude))
         {
@@ -144,7 +144,7 @@ public abstract class Dice : MonoBehaviour
         {
             return 0;
         }
-        
+
         var value = 0;
         float delta = 1;
         int side = 1;
@@ -154,19 +154,20 @@ public abstract class Dice : MonoBehaviour
             testHitVector = GetVectorForSide(side);
             if (testHitVector != Vector3.zero)
             {
-                float nDelta = Mathf.Abs(localHitNormalized.x - testHitVector.x) + Mathf.Abs(localHitNormalized.y - testHitVector.y) + Mathf.Abs(localHitNormalized.z - testHitVector.z);
+                float nDelta = Mathf.Abs(localHitNormalized.x - testHitVector.x) +
+                               Mathf.Abs(localHitNormalized.y - testHitVector.y) +
+                               Mathf.Abs(localHitNormalized.z - testHitVector.z);
                 if (nDelta < delta)
                 {
                     value = side;
                     delta = nDelta;
                 }
             }
+
             side++;
             // if we got a Vector.zero as the testHitVector we have checked all sides of this die
         } while (testHitVector != Vector3.zero);
 
-        // Debug.Log(value);
-        
         return value;
     }
 
