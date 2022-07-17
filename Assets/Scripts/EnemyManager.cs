@@ -126,6 +126,7 @@ public enum EnemyType
 {
     Goblin,
     [UsedImplicitly] Dementius,
+    Pig,
     None
 }
 

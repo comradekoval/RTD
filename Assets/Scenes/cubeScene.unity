@@ -420,6 +420,11 @@ Transform:
   m_Father: {fileID: 1784136341}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &323017517 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5583696184338978068, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+  m_PrefabInstance: {fileID: 1547794616751704147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &347917211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,6 +1305,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719661245}
   m_CullTransparentMesh: 1
+--- !u!212 &839173284 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7969847113446907857, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
+  m_PrefabInstance: {fileID: 7969847112919107018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &882094235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1547794616943442120, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
@@ -2743,10 +2753,10 @@ MonoBehaviour:
   dbc: {fileID: 2126446250}
   dcb: {fileID: 1784136342}
   spawnableEnemies:
-  - enemyPrefab: {fileID: 882094237}
-    enemyType: 0
   - enemyPrefab: {fileID: 7969847112919107020}
     enemyType: 1
+  - enemyPrefab: {fileID: 882094237}
+    enemyType: 0
   waves:
   - name: Tutorial
     restPeriod: 3.8
@@ -2756,7 +2766,7 @@ MonoBehaviour:
     conveyorSpeed: 1.5
     diceSpawnInterval: 2
     power: 3
-    boss: 2
+    boss: 3
   - name: Try dice
     restPeriod: 12
     enemySpawnIntervalMin: 0.92
@@ -2765,7 +2775,7 @@ MonoBehaviour:
     conveyorSpeed: 2
     diceSpawnInterval: 2
     power: 10
-    boss: 2
+    boss: 3
   - name: Nesi sviney
     restPeriod: 2
     enemySpawnIntervalMin: 0.9
@@ -2957,8 +2967,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784136337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.34, y: 0.5, z: 4.24}
-  m_LocalScale: {x: 14.58272, y: 0.2, z: 2}
+  m_LocalPosition: {x: -1.86, y: 0.5, z: 4.24}
+  m_LocalScale: {x: 15.858707, y: 0.2, z: 2}
   m_Children:
   - {fileID: 256648708}
   - {fileID: 1866432433}
@@ -3042,7 +3052,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866432432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.637, y: -7.9, z: -0.19}
+  m_LocalPosition: {x: 0.56, y: -7.13, z: -0.293}
   m_LocalScale: {x: 0.21890254, y: 4.680678, z: 1.4825963}
   m_Children: []
   m_Father: {fileID: 1784136341}
@@ -3139,6 +3149,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866432432}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!212 &1889201220 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1547794616377457463, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+  m_PrefabInstance: {fileID: 1547794616751704147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2026650869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3870,6 +3885,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 1547794616943442126, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 323017517}
+    - target: {fileID: 1547794616943442126, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+      propertyPath: trapped
+      value: 
+      objectReference: {fileID: 1889201220}
+    - target: {fileID: 1547794616943442127, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 295b7b3918912eb46a6354b030a31403, type: 3}
 --- !u!4 &4736735557170520325 stripped
@@ -4001,6 +4028,18 @@ PrefabInstance:
     - target: {fileID: 3048486920723370497, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936848760526050113, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
+      propertyPath: normal
+      value: 
+      objectReference: {fileID: 839173284}
+    - target: {fileID: 4936848760526050113, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
+      propertyPath: trapped
+      value: 
+      objectReference: {fileID: 839173284}
+    - target: {fileID: 4936848760526050113, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
+      propertyPath: canBeTrapped
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ad2b20db3a930d4e86be77aab17d34e, type: 3}
