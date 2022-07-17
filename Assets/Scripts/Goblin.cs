@@ -96,6 +96,7 @@ public class Goblin : MonoBehaviour
 
     private void GetTrapped(GameObject trap)
     {
+        if (!canBeTrapped) return;
         _isTrapped = true;
         normal.enabled = false;
         trapped.enabled = true;
