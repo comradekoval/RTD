@@ -18,9 +18,11 @@ public class GameState : MonoBehaviour
     public void EndGame(int score)
     {
         var ppVol = FindObjectOfType<PostProcessVolume>();
-        ppVol.profile.GetSetting<Vignette>().intensity.value = 1f;
+        var vignette = ppVol.profile.GetSetting<Vignette>();
+        vignette.intensity.value = 0.3f;
+        vignette.smoothness.overrideState = true;
         endGameUI.SetActive(true);
-        endGameText.text = $"Final Score: {score}";
+        endGameText.text = $"{score}";
         _isGameEnd = true;
     }
 
