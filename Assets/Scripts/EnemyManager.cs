@@ -87,7 +87,7 @@ public class EnemyManager : MonoBehaviour
         if (_willSpawnBoss)
         {
             _willSpawnBoss = false;
-            _currentBoss = SpawnEnemyByType(_currentWave.boss, Vector3.zero);
+            _currentBoss = SpawnEnemyByType(_currentWave.boss,  new Vector3(0f, 0f, 0.3f));
             gameState.CallDementius();
             return;
         }
