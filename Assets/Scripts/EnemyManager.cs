@@ -37,18 +37,24 @@ public class EnemyManager : MonoBehaviour
     private float _nextSpawnTime;
     
     
+    public GameObject dropTip;
     public GameObject rollTip;
     public GameObject shopTip;
     private Vector3 shopTipPos;
+    private Vector3 dropTipPos;
     private Vector3 rollTipPos;
     private bool showShopTip = true;
+    private bool showDropTip = true;
     private bool showRollTip = true;
     public static bool didDropADie = false;
     public static bool didRollADie = false;
     
     private void Start()
     {
+        didDropADie = false;
+        didRollADie = false;
         shopTipPos = HideTip(shopTip);
+        dropTipPos = HideTip(dropTip);
         rollTipPos = HideTip(rollTip);
     }
 
@@ -153,7 +159,12 @@ public class EnemyManager : MonoBehaviour
         if (_currentWave.name == "Tutorial" && showRollTip)
         {
             showRollTip = false;
-            shopTip.transform.position = rollTipPos;
+            rollTip.transform.position = rollTipPos;
+        }
+        if (_currentWave.name == "Tutorial" && showDropTip)
+        {
+            showDropTip = false;
+            dropTip.transform.position = dropTipPos;
         }
     }
     
@@ -165,10 +176,16 @@ public class EnemyManager : MonoBehaviour
             HideTip(shopTip);
         }
 
-        if (didDropADie && didRollADie)
+        if (didRollADie)
         {
             showRollTip = false;
             HideTip(rollTip);
+        }
+        
+        if (didDropADie)
+        {
+            showDropTip = false;
+            HideTip(dropTip);
         }
     }
 
