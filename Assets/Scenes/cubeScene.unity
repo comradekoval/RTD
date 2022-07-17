@@ -2796,7 +2796,7 @@ MonoBehaviour:
     diceSpawnInterval: 1
     power: 20
     enemyTypes: 0000000002000000
-    boss: 1
+    boss: 3
 --- !u!1 &1781860191
 GameObject:
   m_ObjectHideFlags: 0

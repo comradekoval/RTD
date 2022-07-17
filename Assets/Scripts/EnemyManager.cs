@@ -96,11 +96,11 @@ public class EnemyManager : MonoBehaviour
             _currentWaveIndex++;
             if (_currentWave.name == "endless")
             {
-                endlessWave.conveyorSpeed += 0.1f;
-                endlessWave.diceSpawnInterval -= 0.05f;
-                endlessWave.enemySpeedMultiplier += 0.12f;
-                endlessWave.enemySpawnIntervalMax -= 0.08f;
-                endlessWave.enemySpawnIntervalMin -= 0.08f;
+                endlessWave.conveyorSpeed += 0.2f;
+                endlessWave.diceSpawnInterval -= 0.1f;
+                endlessWave.enemySpeedMultiplier += 0.2f;
+                endlessWave.enemySpawnIntervalMax -= 0.1f;
+                endlessWave.enemySpawnIntervalMin -= 0.1f;
             }
             
             _currentWave = _currentWaveIndex < waves.Count ? waves[_currentWaveIndex] : endlessWave;
