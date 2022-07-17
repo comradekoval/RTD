@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -495552393
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9527e2323fa160b41a50459cf490f416, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,12 +129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422d38702b196e04891f9f03e1b7a444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normal: {fileID: 0}
+  trapped: {fileID: 0}
+  canBeTrapped: 1
   hp: 1
   maxHp: 6
   dmg: 1
   speed: 0.01
   animationCooldown: 0.3
   progressBar: {fileID: 4367594315719001959}
+  inTrapDelay: 3
 --- !u!65 &1547794616943442127
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -216,8 +220,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -495552393
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 6fd4ac69d2c62524ea347a389fc8353f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
