@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
         conveyorSpeed = 2,
         restPeriod = 2,
         diceSpawnInterval = 1f,
-        goblinSpeed = 0.017f,
+        enemySpeedMultiplier = 1.7f,
         enemySpawnIntervalMax = 1.5f,
         enemySpawnIntervalMin = 1f
     };
@@ -71,10 +71,11 @@ public class EnemyManager : MonoBehaviour
         }
         
         _currentWavePowerLeft--;
-        var goblin = SpawnEnemyByType(EnemyType.Goblin, new Vector3(0, 0, Random.Range(-2, 2.1f)));
-        if (_currentWave.goblinSpeed != 0)
+        var enemyTypeToSpawn = _currentWave.enemyTypes[Random.Range(0, _currentWave.enemyTypes.Count)];
+        var goblin = SpawnEnemyByType(enemyTypeToSpawn, new Vector3(0, 0, Random.Range(-2, 2.1f)));
+        if (_currentWave.enemySpeedMultiplier != 0)
         {
-            goblin.speed = _currentWave.goblinSpeed;
+            goblin.speed *= _currentWave.enemySpeedMultiplier;
         }
         
         if (_currentWavePowerLeft <= 0  && _currentWave.boss != EnemyType.None)
@@ -97,9 +98,9 @@ public class EnemyManager : MonoBehaviour
             {
                 endlessWave.conveyorSpeed += 0.1f;
                 endlessWave.diceSpawnInterval -= 0.05f;
-                endlessWave.goblinSpeed += 0.01f;
-                endlessWave.enemySpawnIntervalMax -= 0.05f;
-                endlessWave.enemySpawnIntervalMin -= 0.05f;
+                endlessWave.enemySpeedMultiplier += 0.12f;
+                endlessWave.enemySpawnIntervalMax -= 0.08f;
+                endlessWave.enemySpawnIntervalMin -= 0.08f;
             }
             
             _currentWave = _currentWaveIndex < waves.Count ? waves[_currentWaveIndex] : endlessWave;
@@ -144,10 +145,10 @@ public struct Wave
     public float restPeriod;
     public float enemySpawnIntervalMin;
     public float enemySpawnIntervalMax;
-    public float goblinSpeed;
+    public float enemySpeedMultiplier;
     public float conveyorSpeed;
     public float diceSpawnInterval;
     public int power;
-    // public List<EnemyType> enemyTypes;
+    public List<EnemyType> enemyTypes;
     public EnemyType boss;  
 }
