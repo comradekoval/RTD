@@ -98,9 +98,9 @@ public class EnemyManager : MonoBehaviour
             {
                 endlessWave.conveyorSpeed += 0.1f;
                 endlessWave.diceSpawnInterval -= 0.05f;
-                endlessWave.enemySpeedMultiplier += 0.01f;
-                endlessWave.enemySpawnIntervalMax -= 0.05f;
-                endlessWave.enemySpawnIntervalMin -= 0.05f;
+                endlessWave.enemySpeedMultiplier += 0.12f;
+                endlessWave.enemySpawnIntervalMax -= 0.08f;
+                endlessWave.enemySpawnIntervalMin -= 0.08f;
             }
             
             _currentWave = _currentWaveIndex < waves.Count ? waves[_currentWaveIndex] : endlessWave;
