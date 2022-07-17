@@ -155,7 +155,7 @@ public class EnemyManager : MonoBehaviour
 
     private void MaybeShowHint()
     {
-        if (_currentWave.name == "Try dice" && _showShopTip && !_isShowingDrop)
+        if (_currentWave.name == "Try dice" && _showShopTip && !_isShowingRoll)
         {
             _isShowingShop = true;
             _showShopTip = false;
